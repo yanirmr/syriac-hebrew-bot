@@ -16,6 +16,9 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from transliteration import transliterate
 
+PORT = int(os.environ.get('PORT', 5000))
+TOKEN = os.environ['TELEGRAM_TOKEN']
+
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
@@ -50,7 +53,7 @@ def main():
     # Create the Updater and pass it your bot's token.
     # Make sure to set use_context=True to use the new context based callbacks
     # Post version 12 this will no longer be necessary
-    updater = Updater(os.environ['TELEGRAM_TOKEN'], use_context=True) #your token here
+    updater = Updater(TOKEN, use_context=True) #your token here
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -66,7 +69,10 @@ def main():
     dp.add_error_handler(error)
 
     # Start the Bot
-    updater.start_polling()
+    updater.start_webhook(listen="0.0.0.0",
+                          port=int(PORT),
+                          url_path=TOKEN)
+    updater.bot.setWebhook('https://hebrew-syriac-bot.herokuapp.com/' + TOKEN)
 
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
