@@ -16,7 +16,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from transliteration import transliterate
 
-PORT = int(os.environ.get('PORT', 5000))
+PORT = int(os.environ.get('PORT', '8443'))
 TOKEN = os.environ['TELEGRAM_TOKEN']
 
 # Enable logging
