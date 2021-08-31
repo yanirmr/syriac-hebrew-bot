@@ -11,7 +11,7 @@ Then, the bot is started and runs until we press Ctrl-C on the command line.
 """
 
 import logging
-
+import os
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from transliteration import transliterate
